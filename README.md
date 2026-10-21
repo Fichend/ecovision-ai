@@ -7,6 +7,9 @@ knowledge base, an optional DeepSeek integration, and a responsive Next.js
 interface. The model is MobileNetV2 with ImageNet transfer learning and the
 classes `cardboard`, `glass`, `metal`, `paper`, `plastic`, and `trash`.
 
+For the complete Chinese build, training, architecture, frontend, DeepSeek, and
+delivery record, see [`PROJECT_BUILD_GUIDE.md`](PROJECT_BUILD_GUIDE.md).
+
 ## Included deliverables
 
 - reproducible data validation, de-duplication, grouped splitting, training, and evaluation
