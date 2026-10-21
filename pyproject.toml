@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ecovision-ml"
+version = "0.1.0"
+description = "Reproducible TrashNet training pipeline for EcoVision AI"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+  "fastapi",
+  "httpx",
+  "matplotlib",
+  "numpy",
+  "openai",
+  "opencv-python",
+  "pandas",
+  "Pillow",
+  "pydantic>=2",
+  "python-dotenv",
+  "python-multipart",
+  "scikit-learn",
+  "torch==2.14.1",
+  "torchvision==0.29.1",
+  "uvicorn[standard]",
+]
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-asyncio"]
+
+[project.scripts]
+ecovision-api = "ecovision_api.main:run"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

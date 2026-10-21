@@ -1,0 +1,96 @@
+{
+  "source": "/Users/skylerfei/Documents/ChatGPT/Gen-AI/ecovision-ai/data/raw/dataset-resized",
+  "seed": 42,
+  "discovered_images": 2527,
+  "unique_images": 2521,
+  "exact_duplicates_removed": 0,
+  "conflicting_images_removed": 6,
+  "perceptual_hash": "64-bit dHash",
+  "near_duplicate_hamming_threshold": 4,
+  "similarity_groups": 2455,
+  "class_names": [
+    "cardboard",
+    "glass",
+    "metal",
+    "paper",
+    "plastic",
+    "trash"
+  ],
+  "split_counts": {
+    "train": {
+      "cardboard": 283,
+      "metal": 287,
+      "plastic": 336,
+      "paper": 416,
+      "trash": 95,
+      "glass": 348
+    },
+    "validation": {
+      "glass": 75,
+      "paper": 89,
+      "metal": 61,
+      "cardboard": 60,
+      "plastic": 72,
+      "trash": 21
+    },
+    "test": {
+      "paper": 89,
+      "metal": 61,
+      "glass": 75,
+      "plastic": 72,
+      "cardboard": 60,
+      "trash": 21
+    }
+  },
+  "duplicate_records": [],
+  "conflicting_records": [
+    {
+      "path": "/Users/skylerfei/Documents/ChatGPT/Gen-AI/ecovision-ai/data/raw/dataset-resized/glass/glass115.jpg",
+      "label": "glass",
+      "sha256": "81546d1362d75fc60718e5852593c58f66f813e8c1e9d1eae6871fedb02e2868",
+      "dhash": 3978705090800481067,
+      "width": 512,
+      "height": 384
+    },
+    {
+      "path": "/Users/skylerfei/Documents/ChatGPT/Gen-AI/ecovision-ai/data/raw/dataset-resized/glass/glass176.jpg",
+      "label": "glass",
+      "sha256": "c41b99aec8a3257c8668a2144ebbaf8042018f0a85d88e22bf4e413b43693dd8",
+      "dhash": 8786867688469382915,
+      "width": 512,
+      "height": 384
+    },
+    {
+      "path": "/Users/skylerfei/Documents/ChatGPT/Gen-AI/ecovision-ai/data/raw/dataset-resized/glass/glass389.jpg",
+      "label": "glass",
+      "sha256": "e971f4f8f50e960e454ea724cec922fc2988bbf4027aa48b553e139bb5890968",
+      "dhash": 18301778950141600099,
+      "width": 512,
+      "height": 384
+    },
+    {
+      "path": "/Users/skylerfei/Documents/ChatGPT/Gen-AI/ecovision-ai/data/raw/dataset-resized/metal/metal91.jpg",
+      "label": "metal",
+      "sha256": "81546d1362d75fc60718e5852593c58f66f813e8c1e9d1eae6871fedb02e2868",
+      "dhash": 3978705090800481067,
+      "width": 512,
+      "height": 384
+    },
+    {
+      "path": "/Users/skylerfei/Documents/ChatGPT/Gen-AI/ecovision-ai/data/raw/dataset-resized/plastic/plastic152.jpg",
+      "label": "plastic",
+      "sha256": "c41b99aec8a3257c8668a2144ebbaf8042018f0a85d88e22bf4e413b43693dd8",
+      "dhash": 8786867688469382915,
+      "width": 512,
+      "height": 384
+    },
+    {
+      "path": "/Users/skylerfei/Documents/ChatGPT/Gen-AI/ecovision-ai/data/raw/dataset-resized/plastic/plastic332.jpg",
+      "label": "plastic",
+      "sha256": "e971f4f8f50e960e454ea724cec922fc2988bbf4027aa48b553e139bb5890968",
+      "dhash": 18301778950141600099,
+      "width": 512,
+      "height": 384
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "version": "2026-10-21",
+  "regions": {
+    "hong_kong": {
+      "display_name": "Hong Kong",
+      "general_guidance": [
+        "Use clean recycling: empty containers, rinse away residue, and keep paper dry.",
+        "GREEN@COMMUNITY accepts nine common recyclable streams. Acceptance differs by material and item construction, so check the official FAQ when the object is composite or uncertain.",
+        "Do not infer recyclability from appearance alone. Confirm the material and remove non-recyclable components where practical."
+      ],
+      "materials": {
+        "cardboard": [
+          "Corrugated fibreboard is accepted. Remove plastic tape, paper clips, staples, and other non-paper parts, then keep it dry.",
+          "Wet, greasy, or heavily contaminated cardboard may not be suitable for paper recycling."
+        ],
+        "paper": [
+          "Newspaper, office paper, books, notes, and corrugated fibreboard are generally accepted after non-paper parts are removed.",
+          "Receipts, tracing paper, tissues, hand towels, and photographs are not accepted by GREEN@COMMUNITY."
+        ],
+        "plastic": [
+          "Domestic plastic bottles, bags, utensils, containers, packaging, CD cases, and styrofoam are generally accepted after rinsing and emptying.",
+          "Rubber, silicone, metal-plastic products, aluminium-lined snack packaging, toothpaste tubes, toothbrushes, and plastic tape are not accepted in the plastic stream."
+        ],
+        "metal": [
+          "Tin cans, aluminium cans, clean aluminium foil, and many other metal household items are accepted after rinsing.",
+          "Do not place compressed gas cylinders, aerosol cans, chemical containers, non-stick pans, or dangerous sharp items in this stream."
+        ],
+        "glass": [
+          "Beverage, food, and sauce glass containers are accepted. Remove caps and rinse before recycling.",
+          "Chemical containers, cookware, mirrors, tempered or window glass, ceramics, and crystal are not accepted in glass-container bins."
+        ],
+        "trash": [
+          "The visual class 'trash' does not identify the material. Inspect the item for separable paper, plastic, metal, or glass components before disposal.",
+          "If the material or acceptance is uncertain, consult the GREEN@COMMUNITY operator instead of contaminating a recycling stream."
+        ]
+      },
+      "sources": [
+        {
+          "title": "GREEN@COMMUNITY recycling FAQ",
+          "publisher": "Hong Kong Environmental Protection Department",
+          "url": "https://www-dr.wastereduction.gov.hk/en-hk/recycling-faq/greencommunity-faq"
+        },
+        {
+          "title": "GREEN@COMMUNITY network and locator",
+          "publisher": "Hong Kong Environmental Protection Department",
+          "url": "https://www-dr.wastereduction.gov.hk/en-hk/waste-reduction-programme/green-at-community"
+        },
+        {
+          "title": "Waste information",
+          "publisher": "Hong Kong Environmental Protection Department",
+          "url": "https://www.epd.gov.hk/epd/english/environmentinhk/waste/waste_maincontent.html"
+        }
+      ]
+    },
+    "mainland_china": {
+      "display_name": "Mainland China",
+      "general_guidance": [
+        "Municipal rules vary. Ask for the city before giving a bin-level instruction.",
+        "Official English guidance from Beijing, Shanghai, and Nanjing consistently treats clean and dry paper, plastic, glass, and metal as recyclable waste.",
+        "Empty packaging, keep recyclables clean and dry, flatten where appropriate, and wrap sharp or fragile items safely."
+      ],
+      "materials": {
+        "cardboard": [
+          "Clean and dry cardboard is generally recyclable. Flatten large boxes and keep them separate from food residue.",
+          "Large pieces may need to be placed neatly beside the recyclable bin or handled through local collection services."
+        ],
+        "paper": [
+          "Newspapers, books, paper bags, envelopes, and clean paper packaging are commonly listed as recyclables.",
+          "Food-soiled, wet, or composite paper may follow different local rules; confirm with the city guidance."
+        ],
+        "plastic": [
+          "Plastic bottles, containers, toys, tubes, hangers, and some foam plastics are listed as recyclable in official city guidance.",
+          "Empty and clean packaging first. Composite plastics and heavily contaminated items require local confirmation."
+        ],
+        "metal": [
+          "Beverage cans, pots, tools, and other scrap metal are commonly recyclable.",
+          "Wrap blades or sharp edges before disposal and follow local hazardous-item instructions where applicable."
+        ],
+        "glass": [
+          "Glass bottles, cups, and window glass may be included in recyclable waste, but handling rules differ by city.",
+          "Package broken or sharp glass safely before taking it to the locally designated collection point."
+        ],
+        "trash": [
+          "The visual class 'trash' is not a disposal category. Identify the material and check whether it belongs to recyclable, hazardous, kitchen/wet, or residual/dry waste.",
+          "Ask for the city because household waste categories and accepted collection methods are locally implemented."
+        ]
+      },
+      "sources": [
+        {
+          "title": "Waste Sorting and Handling Requirements",
+          "publisher": "Beijing Municipal Government",
+          "url": "https://english.beijing.gov.cn/specials/livablegreenbeijing/greenliving/greenlivingwasteclassification/202312/t20231220_3505424.html"
+        },
+        {
+          "title": "A guide to waste classification",
+          "publisher": "Shanghai Municipal Government",
+          "url": "https://english.shanghai.gov.cn/en-ResidentChecklist/20231212/15dc5685586b44b3ad419639b102687c.html"
+        },
+        {
+          "title": "Waste Classification",
+          "publisher": "Nanjing Municipal Government",
+          "url": "https://english.nanjing.gov.cn/LivinginNanjing/WasteClassification/index_20544.html"
+        },
+        {
+          "title": "Guidelines to establish a waste recycling system",
+          "publisher": "State Council of the People's Republic of China",
+          "url": "https://english.www.gov.cn/policies/latestreleases/202402/09/content_WS65c5ea15c6d0868f4e8e3e8a.html"
+        }
+      ]
+    }
+  }
+}

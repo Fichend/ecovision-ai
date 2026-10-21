@@ -1,0 +1,75 @@
+{
+  "architecture": "mobilenet_v2",
+  "weights": "MobileNet_V2_Weights.IMAGENET1K_V2",
+  "model_version": "mobilenet_v2-trashnet-v1",
+  "class_names": [
+    "cardboard",
+    "glass",
+    "metal",
+    "paper",
+    "plastic",
+    "trash"
+  ],
+  "class_to_index": {
+    "cardboard": 0,
+    "glass": 1,
+    "metal": 2,
+    "paper": 3,
+    "plastic": 4,
+    "trash": 5
+  },
+  "image_size": 224,
+  "normalization": {
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "seed": 42,
+  "epochs": 10,
+  "freeze_epochs": 2,
+  "batch_size": 32,
+  "learning_rate": 0.001,
+  "device": "mps",
+  "best_validation_macro_f1": 0.8870139001109497,
+  "test_metrics": {
+    "loss": 0.2524109184741974,
+    "accuracy": 0.9232804232804233,
+    "macro_f1": 0.9011264724464011,
+    "macro_precision": 0.8947212078149063,
+    "macro_recall": 0.9123150803883903,
+    "seconds": 2.3415949170012027
+  },
+  "dataset_split_counts": {
+    "test": {
+      "cardboard": 60,
+      "glass": 75,
+      "metal": 61,
+      "paper": 89,
+      "plastic": 72,
+      "trash": 21
+    },
+    "train": {
+      "cardboard": 283,
+      "glass": 348,
+      "metal": 287,
+      "paper": 416,
+      "plastic": 336,
+      "trash": 95
+    },
+    "validation": {
+      "cardboard": 60,
+      "glass": 75,
+      "metal": 61,
+      "paper": 89,
+      "plastic": 72,
+      "trash": 21
+    }
+  }
+}
