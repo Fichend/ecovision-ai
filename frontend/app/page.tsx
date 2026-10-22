@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const workflow = [
   { icon: Camera, step: "01", title: "Capture", text: "Upload a photo or use your device camera. JPEG, PNG, and WebP are supported." },
-  { icon: ScanSearch, step: "02", title: "Classify", text: "A MobileNetV2 CNN returns six-class probabilities and an honest confidence message." },
+  { icon: ScanSearch, step: "02", title: "Classify", text: "A MobileNetV3 CNN compares 12 waste categories and rejects uncertain matches instead of forcing an answer." },
   { icon: BrainCircuit, step: "03", title: "Understand", text: "Grad-CAM shows model attention while the assistant grounds advice in official sources." }
 ];
 
@@ -29,9 +29,9 @@ export default function Home() {
           <div className="absolute inset-7 grid place-items-center rounded-[2.25rem] border border-white/20 bg-forest-700 px-10 text-center text-white sm:inset-12">
             <div>
               <div className="mx-auto mb-7 grid size-24 place-items-center rounded-full border border-white/20 bg-white/10"><ScanSearch size={42} /></div>
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-forest-100">Six material classes</p>
-              <p className="mt-3 text-3xl font-black">92.33% test accuracy</p>
-              <p className="mt-3 text-sm leading-6 text-forest-100">Measured on a held-out, near-duplicate-grouped TrashNet split. Real-world performance may be lower.</p>
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-forest-100">Twelve waste categories</p>
+              <p className="mt-3 text-3xl font-black">89.7% held-out accuracy</p>
+              <p className="mt-3 text-sm leading-6 text-forest-100">Multi-source, group-aware test result. Calibrated confidence and an explicit unknown state reduce forced guesses; new real-world performance may be lower.</p>
             </div>
           </div>
           <div className="absolute -bottom-5 -left-2 rounded-2xl border border-forest-900/10 bg-white px-5 py-4 shadow-soft">
@@ -68,7 +68,7 @@ export default function Home() {
         <div className="panel p-8 sm:p-10">
           <ChartNoAxesCombined className="text-forest-700" size={30} />
           <h2 className="mt-6 text-3xl font-black text-forest-900">Evidence before claims</h2>
-          <p className="mt-4 leading-7 text-slate-600">The evaluation page exposes class imbalance, per-class metrics, confusion patterns, and the clean-background limitation of TrashNet.</p>
+          <p className="mt-4 leading-7 text-slate-600">The evaluation page exposes class imbalance, per-class metrics, confusion patterns, source-domain bias, and the limits of a small specialist-class sample.</p>
         </div>
       </section>
     </>

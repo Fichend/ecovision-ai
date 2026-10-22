@@ -10,6 +10,7 @@ __pycache__/
 .next/
 node_modules/
 frontend/.env.local
+.cache/
 
 # Downloaded datasets and generated model artifacts stay outside Git.
 data/raw/*
@@ -24,5 +25,7 @@ artifacts/*
 !artifacts/mobilenet_v2_grouped_baseline/**
 !artifacts/mobilenet_v2_random_split_baseline/
 !artifacts/mobilenet_v2_random_split_baseline/**
+!artifacts/ecovision_12class_v1/
+!artifacts/ecovision_12class_v1/**
 data/external/*
 !data/external/.gitkeep

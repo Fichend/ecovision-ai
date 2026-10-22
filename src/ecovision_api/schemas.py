@@ -12,9 +12,13 @@ class PredictionScore(BaseModel):
 
 class ClassificationContext(BaseModel):
     predicted_class: str
+    raw_predicted_class: str | None = None
     top_predictions: list[PredictionScore]
     confidence: float = Field(ge=0, le=1)
+    confidence_margin: float = Field(default=0, ge=0, le=1)
     confidence_level: Literal["high", "medium", "low"]
+    accepted: bool = True
+    rejection_reason: str | None = None
     uncertainty_message: str
     model_version: str
 

@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-21",
+  "version": "2026-10-22",
   "regions": {
     "hong_kong": {
       "display_name": "Hong Kong",
@@ -21,6 +21,34 @@
           "Domestic plastic bottles, bags, utensils, containers, packaging, CD cases, and styrofoam are generally accepted after rinsing and emptying.",
           "Rubber, silicone, metal-plastic products, aluminium-lined snack packaging, toothpaste tubes, toothbrushes, and plastic tape are not accepted in the plastic stream."
         ],
+        "plastic_container": [
+          "Empty and rinse plastic bottles, cups, and rigid containers before taking them to GREEN@COMMUNITY.",
+          "Separate metal or other non-plastic components where practical. Composite packaging may not be accepted."
+        ],
+        "plastic_bag_film": [
+          "Clean domestic plastic bags and non-composite plastic film may be accepted by GREEN@COMMUNITY.",
+          "Do not include aluminium-lined snack wrappers, toothpaste tubes, plastic tape, or material whose recyclability is uncertain."
+        ],
+        "food_organic": [
+          "Use a participating food-waste collection point or smart food-waste recycling bin where available.",
+          "Remove packaging, cutlery, tissues, and other non-food material before depositing food waste."
+        ],
+        "battery": [
+          "Portable household rechargeable batteries such as Li-ion, NiMH, and Ni-Cd are accepted at designated collection points. Cover exposed terminals with masking tape first.",
+          "Primary batteries, lead-acid batteries, vehicle batteries, and damaged rechargeable batteries require different handling; check the official programme before disposal."
+        ],
+        "electronic_waste": [
+          "Regulated electrical equipment and many small household electrical appliances can be delivered through designated recycling channels.",
+          "Remove personal data where applicable and do not dismantle devices or place them in ordinary material-recycling bins."
+        ],
+        "textile": [
+          "The visual model cannot determine whether a textile is suitable for reuse. Prefer a reputable reuse or textile collection channel when the item is clean and usable.",
+          "Wet, contaminated, composite, or damaged textiles may not be accepted; confirm with the collection operator."
+        ],
+        "foam_disposable_tableware": [
+          "Clean expanded-polystyrene items and some plastic tableware may be accepted, but food residue and mixed materials can make them unsuitable.",
+          "Remove food and non-plastic parts, then confirm acceptance with the selected GREEN@COMMUNITY point."
+        ],
         "metal": [
           "Tin cans, aluminium cans, clean aluminium foil, and many other metal household items are accepted after rinsing.",
           "Do not place compressed gas cylinders, aerosol cans, chemical containers, non-stick pans, or dangerous sharp items in this stream."
@@ -32,6 +60,10 @@
         "trash": [
           "The visual class 'trash' does not identify the material. Inspect the item for separable paper, plastic, metal, or glass components before disposal.",
           "If the material or acceptance is uncertain, consult the GREEN@COMMUNITY operator instead of contaminating a recycling stream."
+        ],
+        "general_waste": [
+          "Check whether the item contains a separately recyclable, rechargeable-battery, or electronic component before treating it as general waste.",
+          "If the material is uncertain, ask the collection operator rather than contaminating a recycling stream."
         ]
       },
       "sources": [
@@ -72,6 +104,34 @@
           "Plastic bottles, containers, toys, tubes, hangers, and some foam plastics are listed as recyclable in official city guidance.",
           "Empty and clean packaging first. Composite plastics and heavily contaminated items require local confirmation."
         ],
+        "plastic_container": [
+          "Clean plastic bottles and rigid containers are commonly treated as recyclables, but accepted items vary by city.",
+          "Empty and rinse the item, remove obvious non-plastic parts, and follow the local collection rule."
+        ],
+        "plastic_bag_film": [
+          "Clean plastic bags or film may be recyclable in some cities, while composite and contaminated film may be residual waste.",
+          "Check the city rule before placing flexible plastic in a recyclable bin."
+        ],
+        "food_organic": [
+          "Food scraps, grains, vegetables, fruit peel, and similar kitchen waste are commonly treated as household food or wet waste.",
+          "Remove all packaging, tissues, and tableware and follow the city's kitchen-waste collection instructions."
+        ],
+        "battery": [
+          "Rechargeable, nickel-cadmium, lead-acid, mercury, and button batteries are commonly treated as hazardous waste rather than ordinary recyclables.",
+          "Protect exposed terminals and use the city's designated hazardous-waste collection channel."
+        ],
+        "electronic_waste": [
+          "Do not place complete electronic devices in ordinary recyclable or residual-waste bins.",
+          "Use a standardized electronic-waste recycler or the collection route designated by the city, and remove personal data first."
+        ],
+        "textile": [
+          "Clothes, shoes, bags, and other textiles may be considered recyclables in some municipal systems when clean and suitable for recovery.",
+          "Reuse is preferable where possible; otherwise confirm the city's collection channel."
+        ],
+        "foam_disposable_tableware": [
+          "Foam plastics and disposable tableware must be clean before any recycling route is considered.",
+          "Local acceptance differs substantially, so use the city rule when deciding between recyclables and residual waste."
+        ],
         "metal": [
           "Beverage cans, pots, tools, and other scrap metal are commonly recyclable.",
           "Wrap blades or sharp edges before disposal and follow local hazardous-item instructions where applicable."
@@ -83,6 +143,10 @@
         "trash": [
           "The visual class 'trash' is not a disposal category. Identify the material and check whether it belongs to recyclable, hazardous, kitchen/wet, or residual/dry waste.",
           "Ask for the city because household waste categories and accepted collection methods are locally implemented."
+        ],
+        "general_waste": [
+          "Treat the prediction as a visual category only and check whether the item is hazardous, food waste, or contains a recyclable component.",
+          "Use the city's residual or dry-waste route only after ruling out those special streams."
         ]
       },
       "sources": [

@@ -1,0 +1,42 @@
+{
+  "created_at": "2026-10-22",
+  "training_images_in_repository": false,
+  "sources": [
+    {
+      "id": "garbage12",
+      "title": "Garbage Classification (12 classes)",
+      "url": "https://www.kaggle.com/datasets/mostafaabla/garbage-classification",
+      "download_mirror": "https://huggingface.co/datasets/UdaraChamidu/Garbage-Classification-with-12-classes",
+      "license": "Database: Open Database, Contents: Original Authors",
+      "original_archive_images": 15520,
+      "selection_policy": "seeded, maximum 800 images per mapped target class"
+    },
+    {
+      "id": "trashnet",
+      "title": "TrashNet",
+      "authors": "Gary Thung and Mindy Yang",
+      "url": "https://github.com/garythung/trashnet",
+      "license": "MIT repository; cite dataset authors",
+      "selection_policy": "existing validated project copy"
+    },
+    {
+      "id": "taco",
+      "title": "TACO: Trash Annotations in Context",
+      "url": "https://huggingface.co/datasets/pictograph/taco",
+      "paper": "https://arxiv.org/abs/2003.06975",
+      "license": "CC BY 4.0 for the referenced dataset mirror",
+      "selection_policy": "seeded, bounded labeled object crops"
+    },
+    {
+      "id": "giz_ewaste_database",
+      "title": "GIZ E-Waste Database",
+      "url": "https://huggingface.co/datasets/GIZ/E-Waste-Database",
+      "license": "CC BY 4.0",
+      "selection_policy": "bounded random public image sample"
+    }
+  ],
+  "unused_candidate": {
+    "title": "HGI30",
+    "reason": "The approximately 7.2 GB archive and observed transfer rate did not meet the low-resource constraint, so no HGI30 image entered training."
+  }
+}

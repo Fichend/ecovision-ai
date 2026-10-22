@@ -109,6 +109,11 @@ def assign_similarity_groups(
                 parent[right_root] = left_root
 
         hashes = {index: int(result.at[index, "dhash"]) for index in indices}
+        if "source_group" in result.columns:
+            for _, source_frame in label_frame.groupby("source_group"):
+                source_indices = source_frame.index.tolist()
+                for right in source_indices[1:]:
+                    union(source_indices[0], right)
         for offset, left in enumerate(indices):
             for right in indices[offset + 1 :]:
                 if (hashes[left] ^ hashes[right]).bit_count() <= threshold:

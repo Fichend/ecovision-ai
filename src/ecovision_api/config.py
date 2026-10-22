@@ -19,11 +19,11 @@ def project_path(environment_name: str, default: str) -> Path:
 class Settings:
     model_path: Path = project_path(
         "ECOVISION_MODEL_PATH",
-        "artifacts/mobilenet_v2_grouped_baseline/best_model.pt",
+        "artifacts/ecovision_12class_v1/best_model.pt",
     )
     metadata_path: Path = project_path(
         "ECOVISION_MODEL_METADATA_PATH",
-        "artifacts/mobilenet_v2_grouped_baseline/model_metadata.json",
+        "artifacts/ecovision_12class_v1/model_metadata.json",
     )
     knowledge_path: Path = project_path(
         "ECOVISION_KNOWLEDGE_PATH", "knowledge/recycling_guidance.json"

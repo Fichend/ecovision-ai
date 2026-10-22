@@ -13,7 +13,10 @@ SYSTEM_PROMPT = """You are EcoVision AI's recycling assistant. Respond in concis
 The CNN prediction is immutable evidence from a visual classifier: never replace it or claim
 that it proves material composition. Explain uncertainty plainly. Use only the supplied
 knowledge excerpts for local disposal guidance and cite source titles inline. If the city or
-material is insufficient, say what the user should verify. Never invent a recycling rule."""
+material is insufficient, say what the user should verify. When accepted is false or the
+predicted class is unknown, do not turn raw_predicted_class into a disposal conclusion.
+Explain that it is only the rejected best visual match, ask for a clearer photo or material
+description, and keep any interim advice general. Never invent a recycling rule."""
 
 
 class DeepSeekService:
@@ -72,6 +75,19 @@ def fallback_answer(
     location_note = ""
     if request.location == "mainland_china" and not request.city:
         location_note = " Please provide your city because local collection rules differ."
+    if not request.classification.accepted or prediction == "unknown":
+        candidate = request.classification.raw_predicted_class
+        candidate_note = (
+            f" The best visual match was {candidate}, but it did not pass the acceptance threshold."
+            if candidate
+            else ""
+        )
+        return (
+            f"The classifier could not identify this item reliably ({confidence:.1f}% raw "
+            f"softmax confidence).{candidate_note} Please upload a clearer photo or describe "
+            f"the material before using item-specific disposal advice. {statements}"
+            f"{location_note} {service_note}"
+        )
     return (
         f"The CNN predicts {prediction} with {confidence:.1f}% raw softmax confidence. "
         f"This is a visual estimate, not proof of the item's material. {statements}"

@@ -13,7 +13,7 @@ import torch
 from PIL import Image, UnidentifiedImageError
 from torch import nn
 from torchvision import transforms
-from torchvision.models import mobilenet_v2
+from torchvision.models import efficientnet_b0, mobilenet_v2, mobilenet_v3_large
 
 
 class InvalidImageError(ValueError):
@@ -30,9 +30,25 @@ class ModelService:
         self.class_names: list[str] = list(self.metadata["class_names"])
         self.model_version = str(self.metadata["model_version"])
         self.image_size = int(self.metadata["image_size"])
+        self.temperature = float(self.metadata.get("temperature", 1.0))
+        policy = self.metadata.get("rejection_policy", {})
+        self.confidence_threshold = float(policy.get("confidence_threshold", 0.50))
+        self.margin_threshold = float(policy.get("margin_threshold", 0.10))
         self.device = self._choose_device(device)
-        self.model = mobilenet_v2(weights=None)
-        self.model.classifier[1] = nn.Linear(self.model.last_channel, len(self.class_names))
+        architecture = str(self.metadata.get("architecture", "mobilenet_v2"))
+        if architecture == "mobilenet_v2":
+            self.model = mobilenet_v2(weights=None)
+            self.model.classifier[1] = nn.Linear(self.model.last_channel, len(self.class_names))
+        elif architecture == "mobilenet_v3_large":
+            self.model = mobilenet_v3_large(weights=None)
+            final = self.model.classifier[-1]
+            self.model.classifier[-1] = nn.Linear(final.in_features, len(self.class_names))
+        elif architecture == "efficientnet_b0":
+            self.model = efficientnet_b0(weights=None)
+            final = self.model.classifier[-1]
+            self.model.classifier[-1] = nn.Linear(final.in_features, len(self.class_names))
+        else:
+            raise ValueError(f"Unsupported model architecture: {architecture}")
         state = torch.load(model_path, map_location=self.device, weights_only=True)
         self.model.load_state_dict(state)
         self.model.to(self.device).eval()
@@ -90,21 +106,47 @@ class ModelService:
             return "medium", "The classes are not clearly separated. Check the item material and local recycling guidance before disposal."
         return "low", "Low-confidence result. The image may contain multiple materials or differ from the training data; do not rely on this prediction alone."
 
+    @staticmethod
+    def visual_quality_reason(image: Image.Image) -> str | None:
+        """Reject blank or nearly uniform frames before trusting softmax scores."""
+        luminance = np.asarray(image.convert("L").resize((64, 64)), dtype=np.float32)
+        if float(luminance.std()) < 3.0:
+            return "low_visual_information"
+        return None
+
     def classify(self, image: Image.Image, include_gradcam: bool = True) -> dict[str, object]:
         tensor = self.transform(image).unsqueeze(0).to(self.device)
         started = time.perf_counter()
         with self._lock:
             with torch.inference_mode():
                 logits = self.model(tensor)
-                probabilities = torch.softmax(logits, dim=1)[0].detach().cpu()
+                probabilities = torch.softmax(logits / self.temperature, dim=1)[0].detach().cpu()
             top_probabilities, top_indices = torch.topk(probabilities, k=3)
             predicted_index = int(top_indices[0])
             gradcam = self._gradcam_data_url(image, tensor, predicted_index) if include_gradcam else None
         elapsed_ms = (time.perf_counter() - started) * 1000
         confidence = float(top_probabilities[0])
+        margin = float(top_probabilities[0] - top_probabilities[1])
+        quality_reason = self.visual_quality_reason(image)
+        accepted = (
+            quality_reason is None
+            and confidence >= self.confidence_threshold
+            and margin >= self.margin_threshold
+        )
         confidence_level, uncertainty = self.confidence_details(confidence)
+        raw_prediction = self.class_names[predicted_index]
+        if not accepted:
+            confidence_level = "low"
+            uncertainty = (
+                "The image contains too little visual detail for reliable recognition. "
+                "Retake it with the item clearly visible."
+                if quality_reason
+                else "The model cannot identify this item reliably. Retake the photo with one "
+                "clear item, better lighting, and a simpler background."
+            )
         return {
-            "predicted_class": self.class_names[predicted_index],
+            "predicted_class": raw_prediction if accepted else "unknown",
+            "raw_predicted_class": raw_prediction,
             "top_predictions": [
                 {
                     "label": self.class_names[int(index)],
@@ -113,7 +155,12 @@ class ModelService:
                 for probability, index in zip(top_probabilities, top_indices)
             ],
             "confidence": confidence,
+            "confidence_margin": margin,
             "confidence_level": confidence_level,
+            "accepted": accepted,
+            "rejection_reason": (
+                None if accepted else quality_reason or "low_confidence_or_ambiguous"
+            ),
             "uncertainty_message": uncertainty,
             "inference_time_ms": elapsed_ms,
             "model_version": self.model_version,

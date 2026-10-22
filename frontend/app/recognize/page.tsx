@@ -147,7 +147,7 @@ export default function RecognizePage() {
       <div className="mx-auto max-w-4xl text-center">
         <p className="eyebrow">Image recognition</p>
         <h1 className="mt-4 text-4xl font-black tracking-tight text-forest-900 sm:text-5xl">What are you holding?</h1>
-        <p className="mx-auto mt-4 max-w-2xl leading-7 text-slate-600">Use one clear item, good lighting, and a simple background when possible. The model recognizes visual categories, not chemical composition.</p>
+        <p className="mx-auto mt-4 max-w-2xl leading-7 text-slate-600">Use one clear item, good lighting, and a simple background when possible. The model compares 12 waste categories and may return Unknown when evidence is weak; it does not determine chemical composition.</p>
       </div>
 
       <div className="panel mx-auto mt-10 max-w-4xl overflow-hidden p-5 sm:p-8">

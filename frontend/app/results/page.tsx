@@ -20,9 +20,11 @@ export default function ResultsPage() {
   if (analysis === undefined) return <div className="page-shell py-24 text-center">Loading result…</div>;
   if (!analysis) return <section className="page-shell py-24 text-center"><h1 className="text-4xl font-black text-forest-900">No analysis yet</h1><p className="mt-3 text-slate-600">Upload an image to create a result.</p><Link className="button-primary mt-7" href="/recognize">Analyze an item</Link></section>;
   const { result, imageDataUrl } = analysis;
+  const rejected = result.accepted === false || result.predicted_class === "unknown";
   return (
     <section className="page-shell py-14 sm:py-20">
-      <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="eyebrow">Recognition result</p><h1 className="mt-3 text-4xl font-black tracking-tight text-forest-900 sm:text-5xl">Likely {titleCase(result.predicted_class)}</h1></div><ConfidenceBadge level={result.confidence_level} /></div>
+      <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="eyebrow">Recognition result</p><h1 className="mt-3 text-4xl font-black tracking-tight text-forest-900 sm:text-5xl">{rejected ? "Unable to identify reliably" : `Likely ${titleCase(result.predicted_class)}`}</h1>{rejected && result.raw_predicted_class && <p className="mt-3 text-sm text-slate-600">Best visual match: {titleCase(result.raw_predicted_class)}. This guess was rejected by the confidence gate.</p>}</div><ConfidenceBadge level={result.confidence_level} /></div>
+      {rejected && <div className="mt-7 rounded-2xl border border-amber-300 bg-amber-50 p-5 text-sm leading-6 text-amber-950"><strong>No disposal category was assigned.</strong> Photograph one item in brighter light against a plain background, or describe its material to the assistant. Do not rely on the best visual match alone.</div>}
       <div className="mt-9 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="panel grid gap-4 p-5 sm:grid-cols-2">
           <figure><figcaption className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-500">Original image</figcaption><div className="overflow-hidden rounded-2xl bg-slate-100"><img className="aspect-square w-full object-contain" src={imageDataUrl} alt="Uploaded item" /></div></figure>
@@ -34,7 +36,7 @@ export default function ResultsPage() {
           <div className="panel p-7"><div className="flex items-center gap-2 text-sm font-bold text-forest-800"><Timer size={17} /> {result.inference_time_ms.toFixed(0)} ms · {result.model_version}</div><p className="mt-4 text-sm leading-6 text-slate-600">{result.uncertainty_message}</p></div>
         </div>
       </div>
-      <div className="mt-8 flex flex-col gap-3 sm:flex-row"><Link className="button-primary" href="/assistant">Ask the recycling assistant <ArrowRight size={18} /></Link><Link className="button-secondary" href="/recognize"><RotateCcw size={18} /> Analyze another item</Link></div>
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row"><Link className={rejected ? "button-secondary" : "button-primary"} href="/assistant">Ask the recycling assistant <ArrowRight size={18} /></Link><Link className={rejected ? "button-primary" : "button-secondary"} href="/recognize"><RotateCcw size={18} /> {rejected ? "Retake or choose another image" : "Analyze another item"}</Link></div>
     </section>
   );
 }

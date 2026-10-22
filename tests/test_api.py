@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+from dataclasses import replace
+
 from fastapi.testclient import TestClient
 
+import ecovision_api.main as main_module
 from ecovision_api.inference import InvalidImageError
 from ecovision_api.main import app, get_model_service
 
@@ -67,7 +70,12 @@ def test_classify_rejects_unsupported_mime_type() -> None:
     assert response.status_code == 415
 
 
-def test_chat_uses_grounded_fallback_without_api_key() -> None:
+def test_chat_uses_grounded_fallback_without_api_key(monkeypatch) -> None:
+    monkeypatch.setattr(
+        main_module,
+        "settings",
+        replace(main_module.settings, deepseek_api_key=None),
+    )
     payload = {
         "conversation_history": [],
         "classification": {
@@ -90,3 +98,38 @@ def test_chat_uses_grounded_fallback_without_api_key() -> None:
     assert response.status_code == 200
     assert response.json()["provider"] == "grounded_fallback"
     assert response.json()["sources"]
+
+
+def test_chat_does_not_treat_rejected_guess_as_classification(monkeypatch) -> None:
+    monkeypatch.setattr(
+        main_module,
+        "settings",
+        replace(main_module.settings, deepseek_api_key=None),
+    )
+    payload = {
+        "classification": {
+            "predicted_class": "unknown",
+            "raw_predicted_class": "battery",
+            "top_predictions": [
+                {"label": "battery", "probability": 0.39},
+                {"label": "metal", "probability": 0.34},
+                {"label": "general_waste", "probability": 0.27},
+            ],
+            "confidence": 0.39,
+            "confidence_margin": 0.05,
+            "confidence_level": "low",
+            "accepted": False,
+            "rejection_reason": "low_confidence_or_ambiguous",
+            "uncertainty_message": "The result was rejected.",
+            "model_version": "test-model",
+        },
+        "question": "What should I do?",
+        "location": "hong_kong",
+    }
+    with client() as test_client:
+        response = test_client.post("/api/chat", json=payload)
+    assert response.status_code == 200
+    answer = response.json()["response"]
+    assert "could not identify" in answer
+    assert "best visual match was battery" in answer
+    assert "describe the material" in answer

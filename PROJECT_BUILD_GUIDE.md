@@ -1,5 +1,7 @@
 # EcoVision AI 完整构建、训练与交付方案书
 
+> **历史版本说明：** 本文记录 2026-10-21 的 6 类基线。当前 12 类系统、最新指标和运行方法请查看 [`PROJECT_BUILD_GUIDE_12CLASS.md`](PROJECT_BUILD_GUIDE_12CLASS.md)。
+
 > 项目名称：EcoVision AI
 >
 > 项目类型：生成式 AI + 计算机视觉期末项目

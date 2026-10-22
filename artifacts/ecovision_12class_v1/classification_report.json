@@ -1,0 +1,87 @@
+{
+  "battery": {
+    "precision": 0.8976377952755905,
+    "recall": 0.95,
+    "f1-score": 0.9230769230769231,
+    "support": 120.0
+  },
+  "cardboard": {
+    "precision": 0.9367088607594937,
+    "recall": 0.8222222222222222,
+    "f1-score": 0.8757396449704142,
+    "support": 180.0
+  },
+  "electronic_waste": {
+    "precision": 0.96,
+    "recall": 0.96,
+    "f1-score": 0.96,
+    "support": 25.0
+  },
+  "foam_disposable_tableware": {
+    "precision": 0.7916666666666666,
+    "recall": 0.6129032258064516,
+    "f1-score": 0.6909090909090909,
+    "support": 31.0
+  },
+  "food_organic": {
+    "precision": 0.9649122807017544,
+    "recall": 0.9166666666666666,
+    "f1-score": 0.9401709401709402,
+    "support": 120.0
+  },
+  "general_waste": {
+    "precision": 0.9212598425196851,
+    "recall": 0.936,
+    "f1-score": 0.9285714285714286,
+    "support": 125.0
+  },
+  "glass": {
+    "precision": 0.8823529411764706,
+    "recall": 0.8505154639175257,
+    "f1-score": 0.8661417322834646,
+    "support": 194.0
+  },
+  "metal": {
+    "precision": 0.8101851851851852,
+    "recall": 0.9887005649717514,
+    "f1-score": 0.8905852417302799,
+    "support": 177.0
+  },
+  "paper": {
+    "precision": 0.8842592592592593,
+    "recall": 0.9138755980861244,
+    "f1-score": 0.8988235294117647,
+    "support": 209.0
+  },
+  "plastic_bag_film": {
+    "precision": 0.7833333333333333,
+    "recall": 0.9038461538461539,
+    "f1-score": 0.8392857142857143,
+    "support": 52.0
+  },
+  "plastic_container": {
+    "precision": 0.9269662921348315,
+    "recall": 0.859375,
+    "f1-score": 0.8918918918918919,
+    "support": 192.0
+  },
+  "textile": {
+    "precision": 0.9823008849557522,
+    "recall": 0.925,
+    "f1-score": 0.9527896995708155,
+    "support": 120.0
+  },
+  "accuracy": 0.8970873786407767,
+  "macro avg": {
+    "precision": 0.8951319451640019,
+    "recall": 0.8865920746264081,
+    "f1-score": 0.8881654864060605,
+    "support": 1545.0
+  },
+  "weighted avg": {
+    "precision": 0.9008344027215062,
+    "recall": 0.8970873786407767,
+    "f1-score": 0.8967330458931632,
+    "support": 1545.0
+  }
+}

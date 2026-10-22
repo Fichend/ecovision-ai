@@ -7,9 +7,13 @@ export interface PredictionScore {
 
 export interface ClassificationResult {
   predicted_class: string;
+  raw_predicted_class: string | null;
   top_predictions: PredictionScore[];
   confidence: number;
+  confidence_margin: number;
   confidence_level: ConfidenceLevel;
+  accepted: boolean;
+  rejection_reason: string | null;
   uncertainty_message: string;
   inference_time_ms: number;
   model_version: string;

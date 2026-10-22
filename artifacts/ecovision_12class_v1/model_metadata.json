@@ -1,0 +1,120 @@
+{
+  "architecture": "mobilenet_v3_large",
+  "weights": "MobileNet_V3_Large_Weights.IMAGENET1K_V2",
+  "model_version": "mobilenet_v3_large-ecovision-12class-v1",
+  "class_names": [
+    "battery",
+    "cardboard",
+    "electronic_waste",
+    "foam_disposable_tableware",
+    "food_organic",
+    "general_waste",
+    "glass",
+    "metal",
+    "paper",
+    "plastic_bag_film",
+    "plastic_container",
+    "textile"
+  ],
+  "class_to_index": {
+    "battery": 0,
+    "cardboard": 1,
+    "electronic_waste": 2,
+    "foam_disposable_tableware": 3,
+    "food_organic": 4,
+    "general_waste": 5,
+    "glass": 6,
+    "metal": 7,
+    "paper": 8,
+    "plastic_bag_film": 9,
+    "plastic_container": 10,
+    "textile": 11
+  },
+  "image_size": 224,
+  "normalization": {
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "seed": 42,
+  "epochs_requested": 12,
+  "epochs_completed": 10,
+  "early_stopped": true,
+  "freeze_epochs": 2,
+  "batch_size": 8,
+  "learning_rate": 0.001,
+  "temperature": 1.9819122552871704,
+  "rejection_policy": {
+    "confidence_threshold": 0.35,
+    "margin_threshold": 0.05,
+    "coverage": 0.9831824062095731,
+    "accepted_accuracy": 0.9269737005233765
+  },
+  "rejection_test_metrics": {
+    "coverage": 0.9766990291262136,
+    "accepted_accuracy": 0.9092113971710205,
+    "accepted_count": 1509,
+    "rejected_count": 36
+  },
+  "device": "mps",
+  "best_validation_macro_f1": 0.8885894051410589,
+  "test_metrics": {
+    "loss": 0.5002214855957621,
+    "accuracy": 0.8970873786407767,
+    "macro_f1": 0.8881654864060605,
+    "macro_precision": 0.8951319451640019,
+    "macro_recall": 0.8865920746264081,
+    "seconds": 11.90489154192619
+  },
+  "dataset_split_counts": {
+    "test": {
+      "battery": 120,
+      "cardboard": 180,
+      "electronic_waste": 25,
+      "foam_disposable_tableware": 31,
+      "food_organic": 120,
+      "general_waste": 125,
+      "glass": 194,
+      "metal": 177,
+      "paper": 209,
+      "plastic_bag_film": 52,
+      "plastic_container": 192,
+      "textile": 120
+    },
+    "train": {
+      "battery": 560,
+      "cardboard": 843,
+      "electronic_waste": 116,
+      "foam_disposable_tableware": 146,
+      "food_organic": 560,
+      "general_waste": 584,
+      "glass": 906,
+      "metal": 824,
+      "paper": 976,
+      "plastic_bag_film": 245,
+      "plastic_container": 896,
+      "textile": 560
+    },
+    "validation": {
+      "battery": 120,
+      "cardboard": 180,
+      "electronic_waste": 25,
+      "foam_disposable_tableware": 31,
+      "food_organic": 120,
+      "general_waste": 125,
+      "glass": 194,
+      "metal": 177,
+      "paper": 209,
+      "plastic_bag_film": 53,
+      "plastic_container": 192,
+      "textile": 120
+    }
+  }
+}

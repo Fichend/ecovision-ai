@@ -10,8 +10,8 @@ export function Footer() {
             Visual classification is an estimate. Always confirm material composition and local collection rules before disposal.
           </p>
         </div>
-        <a className="flex items-center gap-2 text-sm font-semibold text-forest-800 sm:justify-self-end" href="https://github.com/garythung/trashnet" target="_blank" rel="noreferrer">
-          TrashNet attribution <ExternalLink size={15} />
+        <a className="flex items-center gap-2 text-sm font-semibold text-forest-800 sm:justify-self-end" href="https://github.com/Fichend/ecovision-ai/blob/main/PROJECT_BUILD_GUIDE_12CLASS.md" target="_blank" rel="noreferrer">
+          Data sources and model card <ExternalLink size={15} />
         </a>
       </div>
     </footer>

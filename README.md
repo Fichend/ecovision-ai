@@ -1,19 +1,24 @@
 # EcoVision AI
 
 EcoVision AI is a local-first, full-stack recycling assistant for Hong Kong and
-mainland China. It combines a reproducible six-class TrashNet training pipeline,
-a FastAPI inference service, Grad-CAM explanations, an English recycling
-knowledge base, an optional DeepSeek integration, and a responsive Next.js
-interface. The model is MobileNetV2 with ImageNet transfer learning and the
-classes `cardboard`, `glass`, `metal`, `paper`, `plastic`, and `trash`.
+mainland China. It combines a reproducible 12-class, multi-source training
+pipeline, a FastAPI inference service, Grad-CAM explanations, an English
+recycling knowledge base, an optional DeepSeek integration, and a responsive
+Next.js interface. The production model uses ImageNet transfer learning with a
+resource-conscious MobileNetV3 backbone.
 
-For the complete Chinese build, training, architecture, frontend, DeepSeek, and
-delivery record, see [`PROJECT_BUILD_GUIDE.md`](PROJECT_BUILD_GUIDE.md).
+For the current Chinese build, training, architecture, frontend, DeepSeek, and
+delivery record, see [`PROJECT_BUILD_GUIDE_12CLASS.md`](PROJECT_BUILD_GUIDE_12CLASS.md).
+The older [`PROJECT_BUILD_GUIDE.md`](PROJECT_BUILD_GUIDE.md) remains as the
+historical six-class baseline record.
 
 ## Included deliverables
 
-- reproducible data validation, de-duplication, grouped splitting, training, and evaluation
-- trained model artifacts with 92.33% grouped test accuracy and 90.11% macro-F1
+- reproducible multi-source curation, validation, de-duplication, grouped splitting, training, and evaluation
+- 12 useful waste categories plus an explicit `unknown` rejection state
+- temperature-calibrated confidence and a validation-selected acceptance gate
+- 89.71% held-out test accuracy and 88.82% macro-F1 on the group-aware split
+- 90.92% accuracy across the 97.67% of test images accepted by the confidence gate
 - FastAPI health, image classification, Grad-CAM, and recycling-chat endpoints
 - English guidance grounded in official Hong Kong and mainland China sources
 - deterministic knowledge-base fallback until a DeepSeek API key is configured
@@ -28,37 +33,55 @@ conda activate ecovision
 python -m pip install -e .
 ```
 
+## Classes
+
+`paper`, `cardboard`, `glass`, `metal`, `plastic_container`,
+`plastic_bag_film`, `food_organic`, `battery`, `electronic_waste`, `textile`,
+`foam_disposable_tableware`, and `general_waste`.
+
+`unknown` is not a trained thirteenth class. It is returned when the calibrated
+top probability or the margin over the runner-up is too small.
+
 ## Prepare the data
 
-Place the official TrashNet resized dataset at
-`data/raw/dataset-resized/<class>/*.jpg`, then run:
+The v2 pipeline streams a bounded sample from source archives, resizes selected
+images to at most 384 px, and avoids fully expanding the source ZIP. The exact
+source mappings and commands used for the delivered model are documented in
+[`PROJECT_BUILD_GUIDE_12CLASS.md`](PROJECT_BUILD_GUIDE_12CLASS.md).
 
 ```bash
-python -m ecovision_ml.prepare_data \
-  --source data/raw/dataset-resized \
-  --output data/processed
+python -m ecovision_ml.prepare_multisource \
+  --garbage12-zip /path/to/garbage_classification.zip \
+  --trashnet-dir data/raw/dataset-resized \
+  --additional-dir /path/to/curated-specialist-images \
+  --curated-dir /path/to/temporary-curated-images \
+  --output-dir /path/to/prepared-manifest \
+  --max-per-source-class 800
 ```
 
-Preparation validates every image, removes exact duplicate content, excludes
-all copies of byte-identical images carrying conflicting labels, groups
-same-label near-duplicates using a 64-bit dHash threshold, produces a seeded
-group-aware split targeting 70/15/15, and records every sample in
-`manifest.csv`.
+Preparation validates and normalizes images, records provenance, removes exact
+duplicates and label conflicts, groups same-source object crops and same-label
+near-duplicates, then produces a seeded group-aware 70/15/15 split.
 
 ## Train and evaluate
 
 ```bash
 python -m ecovision_ml.train \
-  --manifest data/processed/manifest.csv \
-  --output artifacts/mobilenet_v2_baseline \
-  --epochs 10 \
+  --manifest /path/to/prepared-manifest/manifest.csv \
+  --output artifacts/ecovision_12class_v1 \
+  --architecture mobilenet_v3_large \
+  --epochs 12 \
   --freeze-epochs 2 \
-  --batch-size 32
+  --batch-size 8 \
+  --workers 0 \
+  --cpu-threads 2
 ```
 
-The best checkpoint is selected on validation macro-F1. The test set is used
-once after model selection. Outputs include class mapping, training history,
-test metrics, a classification report, and a confusion matrix.
+The best checkpoint is selected on validation macro-F1 with early stopping. The
+validation logits fit a scalar temperature and acceptance thresholds; the test
+set is used once afterward. Outputs include the checkpoint, class mapping,
+audit manifest without local image paths, training history, test metrics,
+rejection metrics, classification report, and confusion matrix.
 
 ## Run the application locally
 
@@ -115,13 +138,9 @@ independent photos are supplied.
 
 ## Dataset attribution
 
-TrashNet was created by Gary Thung and Mindy Yang for a Stanford CS229 final
-project. The official repository reports 2,527 resized images across six
-classes and requests citation when the dataset is used:
-
-- https://github.com/garythung/trashnet
-- https://huggingface.co/datasets/garythung/trashnet
-
-The source repository is MIT licensed. Dataset limitations include strong class
-imbalance and mostly clean, white backgrounds, so reported test results should
-not be interpreted as real-world recycling-bin performance.
+The delivered 12-class model combines a bounded selection from the public
+Garbage Classification dataset, the existing TrashNet copy, TACO object crops,
+and a bounded CC BY 4.0 GIZ E-Waste Database sample. See
+[`PROJECT_BUILD_GUIDE_12CLASS.md`](PROJECT_BUILD_GUIDE_12CLASS.md) for URLs,
+licenses, mappings, counts, limitations, and reproducibility details. Training
+images are not committed; the trained weights and non-image audit artifacts are.
