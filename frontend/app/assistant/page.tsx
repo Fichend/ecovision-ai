@@ -4,6 +4,7 @@ import { Bot, ExternalLink, LoaderCircle, MapPin, Send, UserRound } from "lucide
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
 import { askAssistant } from "@/lib/api";
+import { IS_STATIC_DEMO } from "@/lib/deployment";
 import { formatPercent, titleCase } from "@/lib/format";
 import { loadAnalysis } from "@/lib/storage";
 import type { ChatResponse, StoredAnalysis } from "@/lib/types";
@@ -28,7 +29,7 @@ export default function AssistantPage() {
     return () => { active = false; };
   }, []);
   if (analysis === undefined) return <div className="page-shell py-24 text-center">Loading assistant…</div>;
-  if (!analysis) return <section className="page-shell py-24 text-center"><Bot className="mx-auto text-forest-700" size={40} /><h1 className="mt-5 text-4xl font-black text-forest-900">Analyze an item first</h1><p className="mt-3 text-slate-600">The assistant needs a structured CNN result to ground the conversation.</p><Link className="button-primary mt-7" href="/recognize">Open recognition</Link></section>;
+  if (!analysis) return <section className="page-shell py-24 text-center"><Bot className="mx-auto text-forest-700" size={40} /><h1 className="mt-5 text-4xl font-black text-forest-900">{IS_STATIC_DEMO ? "Assistant unavailable in static preview" : "Analyze an item first"}</h1><p className="mx-auto mt-3 max-w-2xl text-slate-600">{IS_STATIC_DEMO ? "DeepSeek guidance requires the private API key and Python backend. GitHub Pages cannot run that service or safely store the key." : "The assistant needs a structured CNN result to ground the conversation."}</p><Link className="button-primary mt-7" href={IS_STATIC_DEMO ? "/evaluation" : "/recognize"}>{IS_STATIC_DEMO ? "Inspect model evidence" : "Open recognition"}</Link></section>;
   const result = analysis.result;
   const rejected = result.accepted === false || result.predicted_class === "unknown";
 
@@ -61,7 +62,7 @@ export default function AssistantPage() {
             {messages.map((message, index) => <div className={`flex gap-3 ${message.role === "user" ? "justify-end" : "justify-start"}`} key={`${message.role}-${index}`}><div className={`max-w-[82%] rounded-3xl p-4 text-sm leading-6 ${message.role === "user" ? "bg-forest-800 text-white" : "border border-forest-900/10 bg-white text-slate-700"}`}><span className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-wider opacity-70">{message.role === "user" ? <UserRound size={13} /> : <Bot size={13} />}{message.role}</span>{message.content}</div></div>)}
             {loading && <div className="flex items-center gap-2 text-sm text-slate-500"><LoaderCircle className="animate-spin" size={17} /> Checking grounded guidance…</div>}
           </div>
-          <form className="border-t border-forest-900/10 p-4 sm:p-6" onSubmit={submit}><div className="flex gap-3"><input className="field" value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Ask about this item…" aria-label="Question for recycling assistant" /><button className="button-primary shrink-0 px-5" disabled={loading || !question.trim()} aria-label="Send question"><Send size={18} /></button></div>{error && <p className="mt-3 text-sm font-semibold text-rose-700" role="alert">{error}</p>}</form>
+          <form className="border-t border-forest-900/10 p-4 sm:p-6" onSubmit={submit}><div className="flex gap-3"><input className="field" value={question} onChange={(event) => setQuestion(event.target.value)} placeholder={IS_STATIC_DEMO ? "DeepSeek requires the backend" : "Ask about this item…"} disabled={IS_STATIC_DEMO} aria-label="Question for recycling assistant" /><button className="button-primary shrink-0 px-5" disabled={IS_STATIC_DEMO || loading || !question.trim()} aria-label="Send question"><Send size={18} /></button></div>{error && <p className="mt-3 text-sm font-semibold text-rose-700" role="alert">{error}</p>}</form>
         </div>
       </div>
     </section>

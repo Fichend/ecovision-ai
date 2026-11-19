@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, DragEvent, useEffect, useRef, useState } from "react";
 import { classifyImage } from "@/lib/api";
 import { cameraErrorMessage, fitCameraFrame } from "@/lib/camera";
+import { IS_STATIC_DEMO } from "@/lib/deployment";
 import { saveAnalysis } from "@/lib/storage";
 
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -174,7 +175,7 @@ export default function RecognizePage() {
             <div className="overflow-hidden rounded-3xl bg-slate-100"><img className="h-full max-h-[520px] w-full object-contain" src={preview} alt="Selected waste item preview" /></div>
             <div className="flex flex-col justify-between rounded-3xl bg-forest-900 p-7 text-white">
               <div><FileImage className="text-forest-300" /><p className="mt-6 text-xs font-bold uppercase tracking-wider text-forest-300">Ready to analyze</p><h2 className="mt-2 break-words text-xl font-black">{file?.name}</h2><p className="mt-3 text-sm leading-6 text-forest-100">The model will return the top three categories and a Grad-CAM attention map.</p></div>
-              <div className="mt-8 grid gap-3"><button className="button-primary bg-white text-forest-900 hover:bg-forest-50" disabled={loading} onClick={analyze}>{loading ? <><LoaderCircle className="animate-spin" size={18} /> Analyzing…</> : <>Analyze image</>}</button><button className="inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-bold text-forest-100 hover:bg-white/10" onClick={clear}><Trash2 size={17} /> Remove image</button></div>
+              <div className="mt-8 grid gap-3"><button className="button-primary bg-white text-forest-900 hover:bg-forest-50" disabled={loading || IS_STATIC_DEMO} onClick={analyze}>{IS_STATIC_DEMO ? <>CNN unavailable in static preview</> : loading ? <><LoaderCircle className="animate-spin" size={18} /> Analyzing…</> : <>Analyze image</>}</button><button className="inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-bold text-forest-100 hover:bg-white/10" onClick={clear}><Trash2 size={17} /> Remove image</button></div>
             </div>
           </div>
         )}

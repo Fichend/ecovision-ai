@@ -106,6 +106,34 @@ Open `http://127.0.0.1:3000`. Until `DEEPSEEK_API_KEY` is added to `.env`, the
 assistant deliberately returns a labelled, deterministic response from the
 curated knowledge base.
 
+## Publish the dashboard to GitHub Pages
+
+The frontend supports a separate static-export mode for GitHub Pages. It keeps
+the dashboard layout, navigation, image/camera preview, evaluation metrics,
+charts, and responsive interactions. GitHub Pages cannot execute the Python
+FastAPI service, PyTorch checkpoint, Grad-CAM generation, or DeepSeek requests.
+The deployed site therefore labels itself as a static demonstration and does
+not fabricate classification or assistant output. The local application keeps
+the complete functionality described above.
+
+The workflow in `.github/workflows/deploy-pages.yml` builds only `frontend/`
+and uploads `frontend/out`; it does not publish `.env`, Python environments,
+`node_modules`, training images, model checkpoints, or API keys.
+
+To enable deployment:
+
+1. Push the workflow and frontend changes to the repository's `main` branch.
+2. Open the GitHub repository and select **Settings → Pages**.
+3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+4. Open **Actions → Deploy EcoVision dashboard to GitHub Pages** and run the
+   workflow, or push another frontend change to `main`.
+5. After the deployment job succeeds, open
+   `https://fichend.github.io/ecovision-ai/`.
+
+No DeepSeek secret is required or supported in the Pages build. A public site
+would need a separately hosted backend before live CNN and LLM features could
+be enabled safely.
+
 ## Verify the project
 
 From the project root:

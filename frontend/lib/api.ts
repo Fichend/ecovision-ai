@@ -1,6 +1,7 @@
 import type { ChatResponse, ClassificationResult } from "./types";
+import { IS_STATIC_DEMO, STATIC_DEMO_MESSAGE } from "./deployment";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "";
 
 async function parseError(response: Response): Promise<string> {
   try {
@@ -12,6 +13,7 @@ async function parseError(response: Response): Promise<string> {
 }
 
 export async function classifyImage(file: File): Promise<ClassificationResult> {
+  if (IS_STATIC_DEMO) throw new Error(STATIC_DEMO_MESSAGE);
   const body = new FormData();
   body.append("image", file);
   const response = await fetch(`${API_URL}/api/classify`, { method: "POST", body });
@@ -20,6 +22,7 @@ export async function classifyImage(file: File): Promise<ClassificationResult> {
 }
 
 export async function askAssistant(payload: object): Promise<ChatResponse> {
+  if (IS_STATIC_DEMO) throw new Error(STATIC_DEMO_MESSAGE);
   const response = await fetch(`${API_URL}/api/chat`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

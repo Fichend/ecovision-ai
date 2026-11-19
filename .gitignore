@@ -8,6 +8,7 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .next/
+frontend/out/
 node_modules/
 frontend/.env.local
 .cache/
