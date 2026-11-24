@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
-    <meta http-equiv="refresh" content="0; url=https://rescue-journalists-nvidia-sufficient.trycloudflare.com/">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <title>Open EcoVision AI</title>
     <style>
       body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f8f6f0; color: #183f30; font: 18px/1.6 system-ui, sans-serif; }
@@ -15,9 +15,33 @@
   <body>
     <main>
       <h1>EcoVision AI</h1>
-      <p>Opening the live system…</p>
-      <p><a href="https://rescue-journalists-nvidia-sufficient.trycloudflare.com/">Continue to EcoVision AI</a></p>
+      <p id="status" role="status">Finding the current live system…</p>
+      <p><a id="live-link" href="https://rescue-journalists-nvidia-sufficient.trycloudflare.com/" target="_blank" rel="noopener">Open EcoVision AI in your browser</a></p>
       <p>The live system is available while the host Mac and tunnel are running.</p>
+      <noscript><p>Use the link above to continue. JavaScript is disabled, so the latest address cannot be checked automatically.</p></noscript>
     </main>
+    <script>
+      (async function () {
+        const status = document.getElementById("status");
+        const link = document.getElementById("live-link");
+        try {
+          const response = await fetch("./live.json?v=" + Date.now(), {
+            cache: "no-store",
+            signal: AbortSignal.timeout(8000)
+          });
+          if (!response.ok) throw new Error("Address lookup failed");
+          const data = await response.json();
+          const destination = new URL(data.url);
+          if (destination.protocol !== "https:" || !destination.hostname.endsWith(".trycloudflare.com")) {
+            throw new Error("Invalid live address");
+          }
+          link.href = destination.href;
+          status.textContent = "Opening EcoVision AI… If you stay here, click the link below.";
+          window.location.replace(destination.href);
+        } catch (error) {
+          status.textContent = "Automatic connection could not finish. Click the link below to open the live system.";
+        }
+      })();
+    </script>
   </body>
 </html>
